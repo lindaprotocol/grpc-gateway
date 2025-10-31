@@ -1,4 +1,4 @@
-package: github.com/tronprotocol/grpc-gateway
+package: github.com/lindaprotocol/grpc-gateway
 import:
 - package: github.com/go-resty/resty
 - package: github.com/golang/glog

@@ -31,20 +31,20 @@ export PATH=$PATH:./protobuf/bin
 
 # Update code 
 ```
-go get -u github.com/tronprotocol/grpc-gateway
+go get -u github.com/lindaprotocol/grpc-gateway
 ```
 
 # Usage
 
-1. Make sure your Tron grpc serivice has been started on `localhost:50051`  , **you can visit [How to build](http://wiki.tron.network/en/latest/The_TRON_Network.html) for starting Tron service.**
-2. Get the source code and change word dir (Strongly suggest update your code before you start the service on your server)
+1. Make sure your Linda grpc serivice has been started on `localhost:50051`  , **you can visit [How to build](http://wiki.linda.network/en/latest/The_LINDA_Network.html) for starting Linda service.**
+2. Get the source code and change word dir (Slindagly suggest update your code before you start the service on your server)
 
 ```
 # download project
-go get -u github.com/tronprotocol/grpc-gateway
+go get -u github.com/lindaprotocol/grpc-gateway
 
 # change to project dir
-cd $GOPATH/src/github.com/tronprotocol/grpc-gateway
+cd $GOPATH/src/github.com/lindaprotocol/grpc-gateway
 ```
 
 3. (Optional) Generate gRPC stub and reverse-proxy. Make sure you have installed protoc
@@ -57,14 +57,14 @@ go get -u github.com/golang/protobuf/protoc-gen-go
 ```
 4. run proxy-server. Make sure your code is lastest version. 
 ```
-go run tron_http/main.go
+go run linda_http/main.go
 or
-go run tron_http/main.go -port 50051 -host localhost
+go run linda_http/main.go -port 50051 -host localhost
 
 # listen is your http port
-go run tron_http/main.go -port 50051 -host 10.0.8.214 -listen 8080
+go run linda_http/main.go -port 50051 -host 10.0.8.214 -listen 8080
 ```
-5. Test API of tron http
+5. Test API of linda http
 
 ```
 curl -X POST -k http://localhost:8086/wallet/listwitnesses

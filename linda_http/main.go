@@ -11,14 +11,14 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 
-	gw "github.com/tronprotocol/grpc-gateway/api"
+	gw "github.com/lindaprotocol/grpc-gateway/api"
 
 	"fmt"
 )
 
 var (
-	port = flag.Int("port",50051, "port of your tron grpc service" )
-	host = flag.String("host", "localhost", "host of your tron grpc service")
+	port = flag.Int("port",50051, "port of your linda grpc service" )
+	host = flag.String("host", "localhost", "host of your linda grpc service")
 	listen = flag.Int("listen", 18890, "the port that http server listen")
 
 )
