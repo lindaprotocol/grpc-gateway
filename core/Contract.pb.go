@@ -495,7 +495,7 @@ type AssetIssueContract struct {
 	Abbr                    []byte                             `protobuf:"bytes,3,opt,name=abbr,proto3" json:"abbr,omitempty"`
 	TotalSupply             int64                              `protobuf:"varint,4,opt,name=total_supply,json=totalSupply,proto3" json:"total_supply,omitempty"`
 	FrozenSupply            []*AssetIssueContract_FrozenSupply `protobuf:"bytes,5,rep,name=frozen_supply,json=frozenSupply,proto3" json:"frozen_supply,omitempty"`
-	TrxNum                  int32                              `protobuf:"varint,6,opt,name=trx_num,json=trxNum,proto3" json:"trx_num,omitempty"`
+	LindNum                  int32                              `protobuf:"varint,6,opt,name=lind_num,json=lindNum,proto3" json:"lind_num,omitempty"`
 	Num                     int32                              `protobuf:"varint,8,opt,name=num,proto3" json:"num,omitempty"`
 	StartTime               int64                              `protobuf:"varint,9,opt,name=start_time,json=startTime,proto3" json:"start_time,omitempty"`
 	EndTime                 int64                              `protobuf:"varint,10,opt,name=end_time,json=endTime,proto3" json:"end_time,omitempty"`
@@ -570,9 +570,9 @@ func (m *AssetIssueContract) GetFrozenSupply() []*AssetIssueContract_FrozenSuppl
 	return nil
 }
 
-func (m *AssetIssueContract) GetTrxNum() int32 {
+func (m *AssetIssueContract) GetLindNum() int32 {
 	if m != nil {
-		return m.TrxNum
+		return m.LindNum
 	}
 	return 0
 }

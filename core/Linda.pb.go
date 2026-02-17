@@ -405,7 +405,7 @@ type Account struct {
 	Type        AccountType `protobuf:"varint,2,opt,name=type,proto3,enum=protocol.AccountType" json:"type,omitempty"`
 	// the create address
 	Address []byte `protobuf:"bytes,3,opt,name=address,proto3" json:"address,omitempty"`
-	// the trx balance
+	// the lind balance
 	Balance int64 `protobuf:"varint,4,opt,name=balance,proto3" json:"balance,omitempty"`
 	// the votes
 	Votes []*Vote `protobuf:"bytes,5,rep,name=votes,proto3" json:"votes,omitempty"`
@@ -622,7 +622,7 @@ func (m *Account) GetLatestConsumeFreeTime() int64 {
 
 // frozen balance
 type Account_Frozen struct {
-	// the frozen trx balance
+	// the frozen lind balance
 	FrozenBalance int64 `protobuf:"varint,1,opt,name=frozen_balance,json=frozenBalance,proto3" json:"frozen_balance,omitempty"`
 	// the expire time
 	ExpireTime           int64    `protobuf:"varint,2,opt,name=expire_time,json=expireTime,proto3" json:"expire_time,omitempty"`

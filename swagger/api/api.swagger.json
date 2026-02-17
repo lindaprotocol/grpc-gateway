@@ -239,7 +239,7 @@
           "type": "string",
           "format": "int64"
         },
-        "trx_num": {
+        "lind_num": {
           "type": "integer",
           "format": "int32"
         },
