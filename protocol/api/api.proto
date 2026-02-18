@@ -2620,18 +2620,6 @@ message TransactionListResponse {
   int64 total = 2;
 }
 
-message TransactionInfo {
-  string hash = 1;
-  int64 blockNumber = 2;
-  int64 timestamp = 3;
-  string from = 4;
-  string to = 5;
-  string value = 6;
-  string fee = 7;
-  int32 result = 8;
-  string contract = 9;
-  string data = 10;
-}
 
 message InternalTransactionRequest {
   string hash = 1;

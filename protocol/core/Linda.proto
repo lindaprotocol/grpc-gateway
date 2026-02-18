@@ -190,11 +190,23 @@ message Transaction {
   repeated Result ret = 5;
 }
 
+// message TransactionInfo {
+//  bytes id = 1;
+//  int64 fee = 2;
+//  int64 blockNumber = 3;
+//  int64 blockTimeStamp = 4;
+// }
 message TransactionInfo {
- bytes id = 1;
- int64 fee = 2;
- int64 blockNumber = 3;
- int64 blockTimeStamp = 4;
+  string hash = 1;
+  int64 blockNumber = 2;
+  int64 timestamp = 3;
+  string from = 4;
+  string to = 5;
+  string value = 6;
+  string fee = 7;
+  int32 result = 8;
+  string contract = 9;
+  string data = 10;
 }
 
 message Transactions {
