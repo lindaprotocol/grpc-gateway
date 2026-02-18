@@ -1,7 +1,6 @@
 package: github.com/lindaprotocol/grpc-gateway
 import:
-- package: gopkg.in/resty.v1
-  version: ^1.12.0
+- package: github.com/go-resty/resty
 - package: github.com/golang/glog
 - package: github.com/golang/protobuf
   subpackages:
