@@ -1,0 +1,212 @@
+syntax = "proto3";
+package protocol;
+
+import "google/api/annotations.proto";
+import "core/Linda.proto";
+
+option java_package = "org.linda.api.scan";
+option java_outer_classname = "ScanApi";
+option go_package = "github.com/lindaprotocol/grpc-gateway/api/scan";
+
+service ScanService {
+  // System endpoints
+  rpc GetHomepageBundle (EmptyMessage) returns (HomepageBundle) {
+    option (google.api.http) = {
+      get: "/api/system/homepage-bundle"
+    };
+  }
+  
+  rpc GetNodeMap (EmptyMessage) returns (NodeMapResponse) {
+    option (google.api.http) = {
+      get: "/api/nodemap"
+    };
+  }
+  
+  rpc GetTop10 (Top10Request) returns (Top10Response) {
+    option (google.api.http) = {
+      get: "/api/top10"
+    };
+  }
+  
+  rpc ProxyRequest (ProxyRequestMessage) returns (ProxyResponse) {
+    option (google.api.http) = {
+      post: "/api/system/proxy"
+      body: "*"
+    };
+  }
+  
+  // Token endpoints
+  rpc GetTokens (TokenRequest) returns (TokenListResponse) {
+    option (google.api.http) = {
+      get: "/api/token"
+    };
+  }
+  
+  rpc GetTokensOverview (TokenOverviewRequest) returns (TokenOverviewResponse) {
+    option (google.api.http) = {
+      get: "/api/tokens/overview"
+    };
+  }
+  
+  rpc GetLRC20Tokens (LRC20TokenRequest) returns (LRC20TokenListResponse) {
+    option (google.api.http) = {
+      get: "/api/token_lrc20"
+    };
+  }
+  
+  rpc GetTokenHolders (TokenHoldersRequest) returns (TokenHoldersResponse) {
+    option (google.api.http) = {
+      get: "/api/tokenholders"
+    };
+  }
+  
+  rpc GetTokenTransfers (TokenTransfersRequest) returns (TokenTransfersResponse) {
+    option (google.api.http) = {
+      get: "/api/token_lrc20/transfers"
+    };
+  }
+  
+  rpc GetTokenIdMapper (TokenIdMapperRequest) returns (TokenIdMapperResponse) {
+    option (google.api.http) = {
+      get: "/api/token/id-mapper"
+    };
+  }
+  
+  // Account endpoints
+  rpc GetAccountList (AccountListRequest) returns (AccountListResponse) {
+    option (google.api.http) = {
+      get: "/api/account/list"
+    };
+  }
+  
+  rpc GetAccountResource (AccountResourceRequest) returns (AccountResourceResponse) {
+    option (google.api.http) = {
+      get: "/api/account/resource"
+    };
+  }
+  
+  rpc GetStatsOverview (StatsOverviewRequest) returns (StatsOverviewResponse) {
+    option (google.api.http) = {
+      get: "/api/stats/overview"
+    };
+  }
+  
+  // Tag endpoints
+  rpc GetTags (TagRequest) returns (TagListResponse) {
+    option (google.api.http) = {
+      get: "/external/tag"
+    };
+  }
+  
+  rpc InsertTag (TagInsertRequest) returns (TagResponse) {
+    option (google.api.http) = {
+      post: "/external/tag/insert"
+      body: "*"
+    };
+  }
+  
+  rpc UpdateTag (TagUpdateRequest) returns (TagResponse) {
+    option (google.api.http) = {
+      post: "/external/tag/update"
+      body: "*"
+    };
+  }
+  
+  rpc DeleteTag (TagDeleteRequest) returns (TagResponse) {
+    option (google.api.http) = {
+      post: "/external/tag/delete"
+      body: "*"
+    };
+  }
+  
+  rpc GetRecommendedTags (TagRecommendRequest) returns (TagListResponse) {
+    option (google.api.http) = {
+      get: "/external/tag/recommend"
+    };
+  }
+  
+  // Block and Transaction endpoints
+  rpc GetBlocks (BlockRequest) returns (BlockListResponse) {
+    option (google.api.http) = {
+      get: "/api/block"
+    };
+  }
+  
+  rpc GetTransactions (TransactionRequest) returns (TransactionListResponse) {
+    option (google.api.http) = {
+      get: "/api/transaction"
+    };
+  }
+  
+  rpc GetInternalTransactions (InternalTransactionRequest) returns (InternalTransactionListResponse) {
+    option (google.api.http) = {
+      get: "/api/internal-transaction"
+    };
+  }
+  
+  rpc GetContractTransactions (ContractTransactionRequest) returns (ContractTransactionResponse) {
+    option (google.api.http) = {
+      get: "/api/contracts/transaction"
+    };
+  }
+  
+  // Search endpoint
+  rpc Search (SearchRequest) returns (SearchResponse) {
+    option (google.api.http) = {
+      get: "/api/search"
+    };
+  }
+  
+  // Market data endpoints
+  rpc GetMarketPairList (MarketPairRequest) returns (MarketPairListResponse) {
+    option (google.api.http) = {
+      get: "/api/exchange/marketPair/list"
+    };
+  }
+  
+  rpc GetExchangeCalc (ExchangeCalcRequest) returns (ExchangeCalcResponse) {
+    option (google.api.http) = {
+      get: "/api/exchange/calc"
+    };
+  }
+  
+  // Ledger endpoints
+  rpc GetLedger (LedgerRequest) returns (LedgerResponse) {
+    option (google.api.http) = {
+      get: "/api/ledger"
+    };
+  }
+  
+  // Testnet endpoints
+  rpc RequestTestnetCoins (TestnetRequest) returns (TestnetResponse) {
+    option (google.api.http) = {
+      post: "/api/testnet/request-coins"
+      body: "*"
+    };
+  }
+  
+  // Statistics endpoints
+  rpc GetEnergyStatistics (EnergyStatsRequest) returns (EnergyStatsResponse) {
+    option (google.api.http) = {
+      get: "/api/energystatistic"
+    };
+  }
+  
+  rpc GetTriggerStatistics (TriggerStatsRequest) returns (TriggerStatsResponse) {
+    option (google.api.http) = {
+      get: "/api/triggerstatistic"
+    };
+  }
+  
+  rpc GetCallerAddressStatistics (CallerStatsRequest) returns (CallerStatsResponse) {
+    option (google.api.http) = {
+      get: "/api/calleraddressstatistic"
+    };
+  }
+  
+  rpc GetTurnover (TurnoverRequest) returns (TurnoverResponse) {
+    option (google.api.http) = {
+      get: "/api/turnover"
+    };
+  }
+}

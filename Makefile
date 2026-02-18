@@ -4,6 +4,13 @@
 # grpc-gateway itself.
 
 PKG=github.com/grpc-ecosystem/grpc-gateway
+LINDAPKG=github.com/lindaprotocol/grpc-gateway
+
+SCAN_PROTO=protocol/api/scan_api.proto
+SCAN_GO=$(SCAN_PROTO:.proto=.pb.go)
+SCAN_GW_GO=$(SCAN_PROTO:.proto=.pb.gw.go)
+SCAN_SWAGGER=$(SCAN_PROTO:.proto=.swagger.json)
+
 GO_PLUGIN=bin/protoc-gen-go
 GO_PROTOBUF_REPO=github.com/golang/protobuf
 GO_PLUGIN_PKG=$(GO_PROTOBUF_REPO)/protoc-gen-go
@@ -86,7 +93,7 @@ SWAGGER_CODEGEN=swagger-codegen
 
 PROTOC_INC_PATH=$(dir $(shell which protoc))/../include
 
-generate: $(RUNTIME_GO)
+generate: $(RUNTIME_GO) $(SCAN_GO) $(SCAN_GW_GO)
 
 .SUFFIXES: .go .proto
 
@@ -96,6 +103,25 @@ $(GO_PLUGIN):
 
 $(RUNTIME_GO): $(RUNTIME_PROTO) $(GO_PLUGIN)
 	protoc -I $(PROTOC_INC_PATH) --plugin=$(GO_PLUGIN) -I $(GOPATH)/src/$(GO_PTYPES_ANY_PKG) -I. --go_out=$(PKGMAP):. $(RUNTIME_PROTO)
+
+# New targets for scan service
+$(SCAN_GO): $(SCAN_PROTO) $(GO_PLUGIN)
+	protoc -I $(PROTOC_INC_PATH) -I. -I$(GOOGLEAPIS_DIR) \
+		--plugin=$(GO_PLUGIN) \
+		--go_out=$(PKGMAP),plugins=grpc:$(GOPATH)/src \
+		$(SCAN_PROTO)
+
+$(SCAN_GW_GO): $(SCAN_PROTO) $(GATEWAY_PLUGIN)
+	protoc -I $(PROTOC_INC_PATH) -I. -I$(GOOGLEAPIS_DIR) \
+		--plugin=$(GATEWAY_PLUGIN) \
+		--grpc-gateway_out=logtostderr=true,$(PKGMAP):$(GOPATH)/src \
+		$(SCAN_PROTO)
+
+$(SCAN_SWAGGER): $(SCAN_PROTO) $(SWAGGER_PLUGIN)
+	protoc -I $(PROTOC_INC_PATH) -I. -I$(GOOGLEAPIS_DIR) \
+		--plugin=$(SWAGGER_PLUGIN) \
+		--swagger_out=logtostderr=true,$(PKGMAP):$(GOPATH)/src \
+		$(SCAN_PROTO)
 
 $(OPENAPIV2_GO): $(OPENAPIV2_PROTO) $(GO_PLUGIN)
 	protoc -I $(PROTOC_INC_PATH) --plugin=$(GO_PLUGIN) -I. --go_out=$(PKGMAP):$(GOPATH)/src $(OPENAPIV2_PROTO)
@@ -130,6 +156,9 @@ $(ABE_EXAMPLE_SRCS): $(ABE_EXAMPLE_SPEC)
 		$(EXAMPLE_CLIENT_DIR)/abe/git_push.sh \
 		$(EXAMPLE_CLIENT_DIR)/abe/.travis.yml
 
+scan-server: $(SCAN_GO) $(SCAN_GW_GO)
+	go build -o bin/scan-server cmd/scan-server/main.go
+
 examples: $(EXAMPLE_SVCSRCS) $(EXAMPLE_GWSRCS) $(EXAMPLE_DEPSRCS) $(EXAMPLE_SWAGGERSRCS) $(EXAMPLE_CLIENT_SRCS)
 test: examples
 	go test -race $(PKG)/...
@@ -146,6 +175,7 @@ lint:
 
 clean distclean:
 	rm -f $(GATEWAY_PLUGIN)
+	rm -f bin/scan-server
 realclean: distclean
 	rm -f $(EXAMPLE_SVCSRCS) $(EXAMPLE_DEPSRCS)
 	rm -f $(EXAMPLE_GWSRCS)
@@ -154,5 +184,6 @@ realclean: distclean
 	rm -f $(SWAGGER_PLUGIN)
 	rm -f $(EXAMPLE_CLIENT_SRCS)
 	rm -f $(OPENAPIV2_GO)
+	rm -f $(SCAN_GO) $(SCAN_GW_GO) $(SCAN_SWAGGER)
 
 .PHONY: generate examples test lint clean distclean realclean

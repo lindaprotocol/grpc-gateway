@@ -1,0 +1,392 @@
+syntax = "proto3";
+package protocol;
+
+import "core/Linda.proto";
+
+option java_package = "org.linda.api.scan";
+option java_outer_classname = "ScanMessages";
+
+// Request/Response messages
+message HomepageBundle {
+  int64 totalBlocks = 1;
+  int64 totalTransactions = 2;
+  int64 totalAccounts = 3;
+  int64 totalContracts = 4;
+  int64 totalTokens = 5;
+  int64 priceUSD = 6;
+  int64 marketCap = 7;
+  int64 volume24h = 8;
+  repeated Block recentBlocks = 9;
+  repeated Transaction recentTransactions = 10;
+}
+
+message NodeMapResponse {
+  repeated NodeInfo nodes = 1;
+}
+
+message NodeInfo {
+  string ip = 1;
+  string host = 2;
+  int32 port = 3;
+  string country = 4;
+  string city = 5;
+  double latitude = 6;
+  double longitude = 7;
+  string nodeType = 8;
+}
+
+message Top10Request {
+  string type = 1;
+}
+
+message Top10Response {
+  repeated TopAccount accounts = 1;
+  repeated TopWitness witnesses = 2;
+}
+
+message TopAccount {
+  string address = 1;
+  string balance = 2;
+  int64 percentage = 3;
+}
+
+message TopWitness {
+  string address = 1;
+  string name = 2;
+  string url = 3;
+  int64 votes = 4;
+}
+
+message ProxyRequestMessage {
+  string url = 1;
+  string method = 2;
+  map<string, string> headers = 3;
+  bytes body = 4;
+}
+
+message ProxyResponse {
+  int32 statusCode = 1;
+  map<string, string> headers = 2;
+  bytes body = 3;
+}
+
+message TokenRequest {
+  int32 id = 1;
+  bool showAll = 2;
+  string sort = 3;
+  int32 limit = 4;
+  string fields = 5;
+  int32 start = 6;
+}
+
+message TokenListResponse {
+  repeated TokenInfo tokens = 1;
+  int64 total = 2;
+}
+
+message TokenInfo {
+  int32 id = 1;
+  string name = 2;
+  string symbol = 3;
+  string contract = 4;
+  int32 decimals = 5;
+  string totalSupply = 6;
+  string owner = 7;
+  int64 issueTime = 8;
+  string type = 9; // LIND, LRC10, LRC20
+}
+
+message LRC20TokenRequest {
+  string contract = 1;
+  string sort = 2;
+  int32 limit = 3;
+  int32 start = 4;
+}
+
+message LRC20TokenListResponse {
+  repeated LRC20TokenInfo tokens = 1;
+  int64 total = 2;
+}
+
+message LRC20TokenInfo {
+  string contract = 1;
+  string name = 2;
+  string symbol = 3;
+  int32 decimals = 4;
+  string totalSupply = 5;
+  string owner = 6;
+  int64 issueTime = 7;
+  int64 holders = 8;
+  string transfers = 9;
+}
+
+message TokenHoldersRequest {
+  string contract = 1;
+  int32 limit = 2;
+  int32 start = 3;
+  string format = 4;
+}
+
+message TokenHoldersResponse {
+  repeated TokenHolder holders = 1;
+  int64 total = 2;
+}
+
+message TokenHolder {
+  string address = 1;
+  string balance = 2;
+  double percentage = 3;
+  int64 rank = 4;
+}
+
+message TokenTransfersRequest {
+  string contract = 1;
+  int32 limit = 2;
+  int32 start = 3;
+  string sort = 4;
+}
+
+message TokenTransfersResponse {
+  repeated TokenTransfer transfers = 1;
+  int64 total = 2;
+}
+
+message TokenTransfer {
+  string transactionId = 1;
+  int64 blockNumber = 2;
+  int64 timestamp = 3;
+  string from = 4;
+  string to = 5;
+  string value = 6;
+  string token = 7;
+}
+
+message AccountListRequest {
+  string address = 1;
+  string sort = 2;
+  int32 limit = 3;
+  int32 start = 4;
+}
+
+message AccountListResponse {
+  repeated AccountInfo accounts = 1;
+  int64 total = 2;
+}
+
+message AccountInfo {
+  string address = 1;
+  string balance = 2;
+  int64 transactions = 3;
+  string accountType = 4;
+  int64 bandwidth = 5;
+  int64 energy = 6;
+}
+
+message AccountResourceRequest {
+  string address = 1;
+}
+
+message AccountResourceResponse {
+  string address = 1;
+  int64 freeNetUsed = 2;
+  int64 freeNetLimit = 3;
+  int64 netUsed = 4;
+  int64 netLimit = 5;
+  int64 energyUsed = 6;
+  int64 energyLimit = 7;
+  map<string, int64> assetNetUsed = 8;
+  map<string, int64> assetNetLimit = 9;
+  int64 totalNetLimit = 10;
+  int64 totalNetWeight = 11;
+  int64 totalEnergyLimit = 12;
+  int64 totalEnergyWeight = 13;
+}
+
+message StatsOverviewRequest {
+  string type = 1;
+}
+
+message StatsOverviewResponse {
+  int64 totalAccounts = 1;
+  int64 totalContracts = 2;
+  int64 totalTransactions = 3;
+  int64 totalBlocks = 4;
+  int64 totalTokens = 5;
+  int64 priceUSD = 6;
+  int64 marketCap = 7;
+  int64 volume24h = 8;
+  repeated ChartDataPoint chartData = 9;
+}
+
+message ChartDataPoint {
+  int64 timestamp = 1;
+  double value = 2;
+}
+
+message TagRequest {
+  string address = 1;
+  int32 limit = 2;
+  int32 start = 3;
+}
+
+message TagInsertRequest {
+  string address = 1;
+  string tag = 2;
+  string description = 3;
+  string owner = 4;
+  string signature = 5;
+}
+
+message TagUpdateRequest {
+  int32 id = 1;
+  string address = 2;
+  string tag = 3;
+  string description = 4;
+  string owner = 5;
+  string signature = 6;
+}
+
+message TagDeleteRequest {
+  int32 id = 1;
+  string owner = 2;
+  string signature = 3;
+}
+
+message TagRecommendRequest {
+  string address = 1;
+}
+
+message TagResponse {
+  bool success = 1;
+  string message = 2;
+  int32 id = 3;
+}
+
+message TagListResponse {
+  repeated Tag tags = 1;
+  int64 total = 2;
+}
+
+message Tag {
+  int32 id = 1;
+  string address = 2;
+  string tag = 3;
+  string description = 4;
+  string owner = 5;
+  int64 createdAt = 6;
+  int32 votes = 7;
+}
+
+message BlockRequest {
+  int64 number = 1;
+  string hash = 2;
+  int32 limit = 3;
+  int32 start = 4;
+  string sort = 5;
+  string format = 6;
+}
+
+message BlockListResponse {
+  repeated Block blocks = 1;
+  int64 total = 2;
+}
+
+message TransactionRequest {
+  string hash = 1;
+  string address = 2;
+  int64 blockNumber = 3;
+  int32 limit = 4;
+  int32 start = 5;
+  string sort = 6;
+}
+
+message TransactionListResponse {
+  repeated TransactionInfo transactions = 1;
+  int64 total = 2;
+}
+
+message TransactionInfo {
+  string hash = 1;
+  int64 blockNumber = 2;
+  int64 timestamp = 3;
+  string from = 4;
+  string to = 5;
+  string value = 6;
+  string fee = 7;
+  int32 result = 8;
+  string contract = 9;
+  string data = 10;
+}
+
+message SearchRequest {
+  string query = 1;
+}
+
+message SearchResponse {
+  repeated SearchResult results = 1;
+}
+
+message SearchResult {
+  string type = 1;
+  string id = 2;
+  string name = 3;
+  string url = 4;
+  string description = 5;
+}
+
+message MarketPairRequest {
+  int32 sortType = 1;
+  int32 pairType = 2;
+}
+
+message MarketPairListResponse {
+  repeated MarketPair pairs = 1;
+}
+
+message MarketPair {
+  string id = 1;
+  string name = 2;
+  string pair = 3;
+  string price = 4;
+  string change24h = 5;
+  string volume24h = 6;
+  string high24h = 7;
+  string low24h = 8;
+  string tokenAddress = 9;
+}
+
+message ExchangeCalcRequest {
+  string pair = 1;
+  string amount = 2;
+  string type = 3;
+}
+
+message ExchangeCalcResponse {
+  string price = 1;
+  string amount = 2;
+  string total = 3;
+  string fee = 4;
+}
+
+message LedgerRequest {
+  string type = 1;
+  int32 start = 2;
+  int32 limit = 3;
+  string format = 4;
+}
+
+message LedgerResponse {
+  repeated LedgerEntry entries = 1;
+  int64 total = 2;
+}
+
+message LedgerEntry {
+  string id = 1;
+  int64 timestamp = 2;
+  string type = 3;
+  string from = 4;
+  string to = 5;
+  string amount = 6;
+  string token = 7;
+  string txId = 8;
+}

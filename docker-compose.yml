@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    environment:
+      POSTGRES_DB: lindascan
+      POSTGRES_USER: lindascan
+      POSTGRES_PASSWORD: lindascan123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - linda-network
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - linda-network
+
+  scan-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["./scan-server"]
+    environment:
+      - GRPC_PORT=50051
+      - HTTP_PORT=18889
+      - LINDA_NODE_ENDPOINT=fullnode:50051
+      - DATABASE_URL=postgresql://lindascan:lindascan123@postgres:5432/lindascan?sslmode=disable
+      - REDIS_ADDR=redis:6379
+      - CMC_API_KEY=${CMC_API_KEY}
+    ports:
+      - "50051:50051"
+      - "18889:18889"
+    depends_on:
+      - postgres
+      - redis
+      - fullnode
+    networks:
+      - linda-network
+
+  fullnode:
+    image: lindaprotocol/linda:latest
+    ports:
+      - "50052:50051"
+      - "8090:8090"
+    volumes:
+      - fullnode_data:/linda
+    networks:
+      - linda-network
+
+  soliditynode:
+    image: lindaprotocol/linda:latest
+    command: ["--solidity"]
+    ports:
+      - "50053:50051"
+    volumes:
+      - soliditynode_data:/linda
+    networks:
+      - linda-network
+
+networks:
+  linda-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  fullnode_data:
+  soliditynode_data:

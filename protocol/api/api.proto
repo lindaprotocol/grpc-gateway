@@ -3,6 +3,7 @@ package protocol;
 
 import "core/Linda.proto";
 import "core/Contract.proto";
+import "api/scan_api.proto";
 import "google/api/annotations.proto";
 
 

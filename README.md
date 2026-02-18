@@ -30,7 +30,7 @@ export PATH=$PATH:./protobuf/bin
 > note: you can choose to download other os realeases on https://github.com/google/protobuf/releases instead of linux realease
 
 # Update code 
-```
+```bash
 go get -u github.com/lindaprotocol/grpc-gateway
 ```
 
@@ -39,7 +39,7 @@ go get -u github.com/lindaprotocol/grpc-gateway
 1. Make sure your Linda grpc serivice has been started on `localhost:50051`  , **you can visit [How to build](http://wiki.linda.network/en/latest/The_LINDA_Network.html) for starting Linda service.**
 2. Get the source code and change word dir (Slindagly suggest update your code before you start the service on your server)
 
-```
+```bash
 # download project
 go get -u github.com/lindaprotocol/grpc-gateway
 
@@ -49,14 +49,14 @@ cd $GOPATH/src/github.com/lindaprotocol/grpc-gateway
 
 3. (Optional) Generate gRPC stub and reverse-proxy. Make sure you have installed protoc
 
-```
+```bash
 go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
 go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
 go get -u github.com/golang/protobuf/protoc-gen-go
 ./gen-proto.sh
 ```
 4. run proxy-server. Make sure your code is lastest version. 
-```
+```bash
 go run linda_http/main.go
 or
 go run linda_http/main.go -port 50051 -host localhost
@@ -66,7 +66,7 @@ go run linda_http/main.go -port 50051 -host 10.0.8.214 -listen 8080
 ```
 5. Test API of linda http
 
-```
+```bash
 curl -X POST -k http://localhost:8086/wallet/listwitnesses
 ```
 
@@ -131,6 +131,55 @@ This parameter can be useful to pass request scoped context between the gateway 
 * Remaining Permanent HTTP header keys (as specified by the IANA [here](http://www.iana.org/assignments/message-headers/message-headers.xhtml) are prefixed with `grpcgateway-` and added with their values to gRPC request header
 * HTTP headers that start with 'Grpc-Metadata-' are mapped to gRPC metadata (prefixed with `grpcgateway-`)
 * While configurable, the default {un,}marshaling uses [jsonpb](https://godoc.org/github.com/golang/protobuf/jsonpb) with `OrigName: true`.
+
+#  Service API
+
+The grpc-gateway now includes a comprehensive scan service that provides explorer functionality:
+
+### Available Endpoints
+
+#### System
+- `GET /api/system/homepage-bundle` - Get homepage statistics
+- `GET /api/nodemap` - Get node geolocation map
+- `GET /api/top10` - Get top accounts/witnesses
+- `POST /api/system/proxy` - Proxy external API requests
+
+#### Tokens
+- `GET /api/token` - List tokens
+- `GET /api/tokens/overview` - Token overview statistics
+- `GET /api/token_lrc20` - List LRC20 tokens
+- `GET /api/tokenholders` - Get token holders
+- `GET /api/token_lrc20/transfers` - Get token transfers
+
+#### Accounts
+- `GET /api/account/list` - List accounts
+- `GET /api/account/resource` - Get account resource info
+- `GET /api/stats/overview` - Get blockchain statistics
+
+#### Tags
+- `GET /external/tag` - Get address tags
+- `POST /external/tag/insert` - Insert new tag
+- `POST /external/tag/update` - Update tag
+- `POST /external/tag/delete` - Delete tag
+
+#### Search
+- `GET /api/search` - Search blocks, transactions, addresses, tokens
+
+### Running the Scan Server
+
+```bash
+# Generate protos
+make generate
+
+# Build scan server
+make scan-server
+
+# Run with default config
+./bin/scan-server -config configs/config.yaml
+
+# Or with Docker Compose
+docker-compose up -d
+```
 
 ## Contribution
 See [CONTRIBUTING.md](http://github.com/grpc-ecosystem/grpc-gateway/blob/master/CONTRIBUTING.md).

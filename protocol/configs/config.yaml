@@ -1,0 +1,49 @@
+server:
+  grpc_port: 50051
+  http_port: 8080
+  enable_tls: false
+  cert_file: ""
+  key_file: ""
+
+linda:
+  fullnode_endpoint: "localhost:50051"
+  solidity_endpoint: "localhost:50052"
+  grpc_timeout: 30s
+
+database:
+  driver: "postgres"
+  host: "localhost"
+  port: 5432
+  user: "lindascan"
+  password: "lindascan123"
+  dbname: "lindascan"
+  sslmode: "disable"
+  max_connections: 100
+  idle_connections: 10
+
+redis:
+  addr: "localhost:6379"
+  password: ""
+  db: 0
+  pool_size: 10
+
+external_apis:
+  coinmarketcap:
+    api_key: "${CMC_API_KEY}"
+    base_url: "https://pro-api.coinmarketcap.com/v1"
+  ipgeo:
+    provider: "ipapi" # or "maxmind"
+    api_key: "${IPGEO_API_KEY}"
+
+cache:
+  default_ttl: 300 # seconds
+  stats_ttl: 60
+  token_ttl: 300
+  account_ttl: 300
+
+indexer:
+  block_batch_size: 100
+  transaction_batch_size: 500
+  contract_batch_size: 50
+  sync_interval: 5s
+  start_block: 0
