@@ -3,16 +3,13 @@ package protocol;
 
 import "core/Linda.proto";
 import "core/Contract.proto";
-import "api/scan/scan.proto";
 import "google/api/annotations.proto";
 
-
-option java_package = "org.linda.api"; //Specify the name of the package that generated the Java file
-option java_outer_classname = "GrpcAPI"; //Specify the class name of the generated Java file
+option java_package = "org.linda.api";
+option java_outer_classname = "GrpcAPI";
 option go_package = "github.com/lindaprotocol/grpc-gateway/api";
 
 service Wallet {
-
   rpc GetAccount (Account) returns (Account) {
     option (google.api.http) = {
       post: "/wallet/getaccount"
@@ -21,7 +18,7 @@ service Wallet {
         get: "/wallet/getaccount"
       }
     };
-  };
+  }
 
   rpc CreateTransaction (TransferContract) returns (Transaction) {
     option (google.api.http) = {
@@ -31,7 +28,7 @@ service Wallet {
         get: "/wallet/createtransaction"
       }
     };
-  };
+  }
 
   rpc BroadcastTransaction (Transaction) returns (Return) {
     option (google.api.http) = {
@@ -41,7 +38,7 @@ service Wallet {
         get: "/wallet/broadcasttransaction"
       }
     };
-  };
+  }
 
   rpc UpdateAccount (AccountUpdateContract) returns (Transaction) {
     option (google.api.http) = {
@@ -51,7 +48,7 @@ service Wallet {
         get: "/wallet/updateaccount"
       }
     };
-  };
+  }
 
   rpc VoteWitnessAccount (VoteWitnessContract) returns (Transaction) {
     option (google.api.http) = {
@@ -61,7 +58,7 @@ service Wallet {
         get: "/wallet/votewitnessaccount"
       }
     };
-  };
+  }
 
   rpc CreateAssetIssue (AssetIssueContract) returns (Transaction) {
     option (google.api.http) = {
@@ -71,7 +68,7 @@ service Wallet {
         get: "/wallet/createassetissue"
       }
     };
-  };
+  }
 
   rpc UpdateWitness (WitnessUpdateContract) returns (Transaction) {
     option (google.api.http) = {
@@ -81,7 +78,7 @@ service Wallet {
         get: "/wallet/updatewitness"
       }
     };
-  };
+  }
 
   rpc CreateAccount (AccountCreateContract) returns (Transaction) {
     option (google.api.http) = {
@@ -91,7 +88,7 @@ service Wallet {
         get: "/wallet/createaccount"
       }
     };
-  };
+  }
 
   rpc CreateWitness (WitnessCreateContract) returns (Transaction) {
     option (google.api.http) = {
@@ -101,7 +98,7 @@ service Wallet {
         get: "/wallet/createwitness"
       }
     };
-  };
+  }
 
   rpc TransferAsset (TransferAssetContract) returns (Transaction) {
     option (google.api.http) = {
@@ -192,6 +189,7 @@ service Wallet {
       }
     };
   }
+
   rpc GetAccountNet (Account) returns (AccountNetMessage) {
     option (google.api.http) = {
         post: "/wallet/getaccountnet"
@@ -200,7 +198,8 @@ service Wallet {
           get: "/wallet/getaccountnet"
         }
       };
-  };
+  }
+
   rpc GetAssetIssueByName (BytesMessage) returns (AssetIssueContract) {
     option (google.api.http) = {
       post: "/wallet/getassetissuebyname"
@@ -210,6 +209,7 @@ service Wallet {
       }
     };
   }
+
   rpc GetNowBlock (EmptyMessage) returns (Block) {
     option (google.api.http) = {
       post: "/wallet/getnowblock"
@@ -219,6 +219,7 @@ service Wallet {
       }
     };
   }
+
   rpc GetBlockByNum (NumberMessage) returns (Block) {
     option (google.api.http) = {
       post: "/wallet/getblockbynum"
@@ -238,6 +239,7 @@ service Wallet {
       }
     };
   }
+
   rpc GetBlockByLimitNext (BlockLimit) returns (BlockList) {
     option (google.api.http) = {
       post: "/wallet/getblockbylimitnext"
@@ -247,6 +249,7 @@ service Wallet {
       }
     };
   }
+
   rpc GetBlockByLatestNum (NumberMessage) returns (BlockList) {
     option (google.api.http) = {
       post: "/wallet/getblockbylatestnum"
@@ -256,6 +259,7 @@ service Wallet {
       }
     };
   }
+
   rpc GetTransactionById (BytesMessage) returns (Transaction) {
     option (google.api.http) = {
       post: "/wallet/gettransactionbyid"
@@ -274,7 +278,8 @@ service Wallet {
         get: "/wallet/listwitnesses"
       }
     };
-  };
+  }
+
   rpc GetAssetIssueList (EmptyMessage) returns (AssetIssueList) {
     option (google.api.http) = {
         post: "/wallet/getassetissuelist"
@@ -284,6 +289,7 @@ service Wallet {
         }
       };
   }
+
   rpc GetPaginatedAssetIssueList (PaginatedMessage) returns (AssetIssueList) {
     option (google.api.http) = {
         post: "/wallet/getpaginatedassetissuelist"
@@ -293,6 +299,7 @@ service Wallet {
         }
       };
   }
+
   rpc TotalTransaction (EmptyMessage) returns (NumberMessage) {
     option (google.api.http) = {
       post: "/wallet/totaltransaction"
@@ -302,6 +309,7 @@ service Wallet {
       }
     };
   }
+
   rpc GetNextMaintenanceTime (EmptyMessage) returns (NumberMessage) {
     option (google.api.http) = {
       post: "/wallet/getnextmaintenancetime"
@@ -311,7 +319,7 @@ service Wallet {
       }
     };
   }
-  //Warning: do not invoke this interface provided by others.
+
   rpc GetTransactionSign (TransactionSign) returns (Transaction) {
     option (google.api.http) = {
       post: "/wallet/gettransactionsign"
@@ -320,8 +328,8 @@ service Wallet {
         get: "/wallet/gettransactionsign"
       }
     };
-  };
-  //Warning: do not invoke this interface provided by others.
+  }
+
   rpc CreateAdresss (BytesMessage) returns (BytesMessage) {
     option (google.api.http) = {
       post: "/wallet/createadresss"
@@ -330,8 +338,8 @@ service Wallet {
         get: "/wallet/createadresss"
       }
     };
-  };
-  //Warning: do not invoke this interface provided by others.
+  }
+
   rpc EasyTransfer (EasyTransferMessage) returns (EasyTransferResponse) {
     option (google.api.http) = {
       post: "/wallet/easytransfer"
@@ -340,8 +348,8 @@ service Wallet {
         get: "/wallet/easytransfer"
       }
     };
-  };
-  //Warning: do not invoke this interface provided by others.
+  }
+
   rpc GenerateAddress (EmptyMessage) returns (AddressPrKeyPairMessage){
     option (google.api.http) = {
       post: "/wallet/generateaddress"
@@ -351,11 +359,9 @@ service Wallet {
       }
     };
   }
-};
-
+}
 
 service WalletSolidity {
-
   rpc GetAccount (Account) returns (Account) {
     option (google.api.http) = {
       post: "/walletsolidity/getaccount"
@@ -364,7 +370,8 @@ service WalletSolidity {
         get: "/walletsolidity/getaccount"
       }
     };
-  };
+  }
+
   rpc ListWitnesses (EmptyMessage) returns (WitnessList) {
     option (google.api.http) = {
       post: "/walletsolidity/listwitnesses"
@@ -373,7 +380,8 @@ service WalletSolidity {
         get: "/walletsolidity/listwitnesses"
       }
     };
-  };
+  }
+
   rpc GetAssetIssueList (EmptyMessage) returns (AssetIssueList) {
     option (google.api.http) = {
       post: "/walletsolidity/getassetissuelist"
@@ -383,6 +391,7 @@ service WalletSolidity {
       }
     };
   }
+
   rpc GetPaginatedAssetIssueList (PaginatedMessage) returns (AssetIssueList) {
     option (google.api.http) = {
         post: "/walletsolidity/getpaginatedassetissuelist"
@@ -392,6 +401,7 @@ service WalletSolidity {
         }
       };
   }
+
   rpc GetNowBlock (EmptyMessage) returns (Block) {
     option (google.api.http) = {
       post: "/walletsolidity/getnowblock"
@@ -401,6 +411,7 @@ service WalletSolidity {
       }
     };
   }
+
   rpc GetBlockByNum (NumberMessage) returns (Block) {
     option (google.api.http) = {
       post: "/walletsolidity/getblockbynum"
@@ -410,6 +421,7 @@ service WalletSolidity {
       }
     };
   }
+
   rpc GetTransactionById (BytesMessage) returns (Transaction) {
     option (google.api.http) = {
       post: "/walletsolidity/gettransactionbyid"
@@ -429,7 +441,7 @@ service WalletSolidity {
       }
     };
   }
-  //Warning: do not invoke this interface provided by others.
+
   rpc GenerateAddress (EmptyMessage) returns (AddressPrKeyPairMessage){
     option (google.api.http) = {
       post: "/walletsolidity/generateaddress"
@@ -439,10 +451,9 @@ service WalletSolidity {
       }
     };
   }
-};
+}
 
 service WalletExtension {
-
   rpc GetTransactionsFromThis (AccountPaginated) returns (TransactionList) {
     option (google.api.http) = {
       post: "/walletextension/gettransactionsfromthis"
@@ -452,6 +463,7 @@ service WalletExtension {
       }
     };
   }
+
   rpc GetTransactionsToThis (AccountPaginated) returns (TransactionList) {
     option (google.api.http) = {
       post: "/walletextension/gettransactionstothis"
@@ -461,29 +473,22 @@ service WalletExtension {
       }
     };
   }
-};
+}
 
-// the api of linda's db
 service Database {
-  // for tapos
-  rpc getBlockReference (EmptyMessage) returns (BlockReference) {
+  rpc getBlockReference (EmptyMessage) returns (BlockReference) {}
+  rpc GetDynamicProperties (EmptyMessage) returns (DynamicProperties) {}
+  rpc GetNowBlock (EmptyMessage) returns (Block) {}
+  rpc GetBlockByNum (NumberMessage) returns (Block) {}
+}
 
-  }
-  rpc GetDynamicProperties (EmptyMessage) returns (DynamicProperties) {
+service Network {}
 
-  }
-  rpc GetNowBlock (EmptyMessage) returns (Block) {
-
-  }
-  rpc GetBlockByNum (NumberMessage) returns (Block) {
-
-  }
-};
-
+// Message definitions
 message Return {
   enum response_code {
     SUCCESS = 0;
-    SIGERROR = 1; // error in signature
+    SIGERROR = 1;
     CONTRACT_VALIDATE_ERROR = 2;
     CONTRACT_EXE_ERROR = 3;
     BANDWITH_ERROR = 4;
@@ -505,70 +510,72 @@ message BlockReference {
   bytes block_hash = 2;
 }
 
-// the api of linda's network such as node list.
-service Network {
-
-};
-
 message WitnessList {
   repeated Witness witnesses = 1;
 }
+
 message AssetIssueList {
   repeated AssetIssueContract assetIssue = 1;
 }
+
 message BlockList {
   repeated Block block = 1;
 }
+
 message TransactionList {
   repeated Transaction transaction = 1;
 }
 
-// Gossip node list
 message NodeList {
   repeated Node nodes = 1;
 }
 
-// Gossip node
 message Node {
   Address address = 1;
 }
 
-// Gossip node address
 message Address {
   bytes host = 1;
   int32 port = 2;
 }
 
-message EmptyMessage {
-}
+message EmptyMessage {}
+
 message NumberMessage {
   int64 num = 1;
 }
+
 message BytesMessage {
   bytes value = 1;
 }
+
 message TimeMessage {
   int64 beginInMilliseconds = 1;
   int64 endInMilliseconds = 2;
 }
+
 message BlockLimit {
   int64 startNum = 1;
   int64 endNum = 2;
 }
+
 message TransactionLimit {
   bytes transactionId = 1;
   int64 limitNum = 2;
 }
+
 message AccountPaginated {
   Account account = 1;
   int64 offset = 2;
   int64 limit = 3;
 }
+
 message TimePaginatedMessage {
   TimeMessage timeMessage = 1;
   int64 offset = 2;
   int64 limit = 3;
 }
+
 message AccountNetMessage {
   int64 freeNetUsed = 1;
   int64 freeNetLimit = 2;
@@ -585,13 +592,13 @@ message PaginatedMessage {
   int64 limit = 2;
 }
 
-message EasyTransferMessage{
+message EasyTransferMessage {
   bytes passPhrase = 1;
   bytes toAddress = 2;
   int64 amount = 3;
 }
 
-message EasyTransferResponse{
+message EasyTransferResponse {
   Transaction transaction = 1;
   Return result = 2;
 }

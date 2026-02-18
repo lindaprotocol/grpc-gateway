@@ -29,10 +29,10 @@ protoc -I./protocol   \
     ./protocol/api/*.proto
 
 # Generate scan service protos
-protoc -I=./protocol \
     -I$GOPATH/src/github.com/lindaprotocol/grpc-gateway/third_party/googleapis \
     --go_out=plugins=grpc:../../../ \
-    ./protocol/api/scan/scan.proto
+    ./protocol/api/scan/scan.proto \
+    ./protocol/api/scan/scan_messages.proto
 
 protoc -I=./protocol \
     -I$GOPATH/src/github.com/lindaprotocol/grpc-gateway/third_party/googleapis \

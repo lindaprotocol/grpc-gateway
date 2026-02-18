@@ -19,13 +19,14 @@ import (
     "google.golang.org/grpc"
     "google.golang.org/grpc/credentials/insecure"
     "google.golang.org/grpc/reflection"
+    "google.golang.org/protobuf/encoding/protojson"
     "gorm.io/driver/postgres"
     "gorm.io/gorm"
 )
 
 var (
     grpcPort          = flag.Int("grpc-port", 50051, "gRPC port")
-    httpPort          = flag.Int("http-port", 8080, "HTTP port")
+    httpPort          = flag.Int("http-port", 18889, "HTTP port")
     lindaNodeEndpoint = flag.String("linda-node", "localhost:50051", "Linda node endpoint")
     dbConnection      = flag.String("db", "postgresql://user:pass@localhost/lindascan?sslmode=disable", "Database connection")
 )

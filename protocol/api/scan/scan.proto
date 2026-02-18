@@ -4,6 +4,7 @@ package protocol;
 import "google/api/annotations.proto";
 import "core/Linda.proto";
 import "core/Contract.proto";
+import "api/scan/scan_messages.proto"; 
 
 option java_package = "org.linda.api.scan";
 option java_outer_classname = "ScanApi";

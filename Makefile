@@ -7,7 +7,8 @@ PKG=github.com/grpc-ecosystem/grpc-gateway
 LINDAPKG=github.com/lindaprotocol/grpc-gateway
 
 SCAN_PROTO=protocol/api/scan/scan.proto
-SCAN_GO=$(SCAN_PROTO:.proto=.pb.go)
+SCAN_MESSAGES_PROTO=protocol/api/scan/scan_messages.proto
+SCAN_GO=$(SCAN_PROTO:.proto=.pb.go) $(SCAN_MESSAGES_PROTO:.proto=.pb.go)
 SCAN_GW_GO=$(SCAN_PROTO:.proto=.pb.gw.go)
 SCAN_SWAGGER=$(SCAN_PROTO:.proto=.swagger.json)
 
@@ -94,6 +95,12 @@ SWAGGER_CODEGEN=swagger-codegen
 PROTOC_INC_PATH=$(dir $(shell which protoc))/../include
 
 generate: $(RUNTIME_GO) $(SCAN_GO) $(SCAN_GW_GO)
+
+$(SCAN_GO): $(SCAN_PROTO) $(SCAN_MESSAGES_PROTO) $(GO_PLUGIN)
+	protoc -I $(PROTOC_INC_PATH) -I. -I$(GOOGLEAPIS_DIR) \
+		--plugin=$(GO_PLUGIN) \
+		--go_out=$(PKGMAP),plugins=grpc:$(GOPATH)/src \
+		$(SCAN_PROTO) $(SCAN_MESSAGES_PROTO)
 
 .SUFFIXES: .go .proto
 
