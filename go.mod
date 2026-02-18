@@ -4,7 +4,7 @@ go 1.16
 
 require (
 	github.com/go-redis/redis/v8 v8.11.5
-	github.com/go-resty/resty v1.12.0
+	github.com/go-resty/resty
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/golang/protobuf v1.5.2
 	github.com/gorilla/websocket v1.5.0
