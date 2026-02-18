@@ -6,7 +6,7 @@
 PKG=github.com/grpc-ecosystem/grpc-gateway
 LINDAPKG=github.com/lindaprotocol/grpc-gateway
 
-SCAN_PROTO=protocol/api/scan_api.proto
+SCAN_PROTO=protocol/api/scan/scan.proto
 SCAN_GO=$(SCAN_PROTO:.proto=.pb.go)
 SCAN_GW_GO=$(SCAN_PROTO:.proto=.pb.gw.go)
 SCAN_SWAGGER=$(SCAN_PROTO:.proto=.swagger.json)
