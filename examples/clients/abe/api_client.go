@@ -18,7 +18,7 @@ import (
 	"strings"
 	"net/url"
 	"io/ioutil"
-	"github.com/go-resty/resty"
+	// "github.com/go-resty/resty"
 	"gopkg.in/resty.v1"
 )
 
