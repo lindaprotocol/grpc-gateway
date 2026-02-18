@@ -13,6 +13,7 @@ import (
 	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
 	"github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway/descriptor"
 	gen "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway/generator"
+	
 	options "google.golang.org/genproto/googleapis/api/annotations"
 )
 
@@ -33,6 +34,7 @@ func New(reg *descriptor.Registry, useRequestContext bool) gen.Generator {
 		"io",
 		"net/http",
 		"github.com/grpc-ecosystem/grpc-gateway/runtime",
+		"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 		"github.com/grpc-ecosystem/grpc-gateway/utilities",
 		"github.com/golang/protobuf/proto",
 		"golang.org/x/net/context",

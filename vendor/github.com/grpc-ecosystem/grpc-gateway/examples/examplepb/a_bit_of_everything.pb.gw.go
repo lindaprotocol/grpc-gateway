@@ -17,6 +17,7 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/examples/sub"
 	"github.com/grpc-ecosystem/grpc-gateway/examples/sub2"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/grpc-ecosystem/grpc-gateway/utilities"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"

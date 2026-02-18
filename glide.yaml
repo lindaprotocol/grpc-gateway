@@ -1,6 +1,8 @@
 package: github.com/lindaprotocol/grpc-gateway
 import:
-- package: github.com/go-resty/resty
+# - package: github.com/go-resty/resty
+- package: gopkg.in/resty.v1
+  version: ^1.12.0
 - package: github.com/golang/glog
 - package: github.com/golang/protobuf
   subpackages:
@@ -15,6 +17,12 @@ import:
   - ptypes/empty
   - ptypes/timestamp
   - ptypes/wrappers
+  - package: github.com/grpc-ecosystem/grpc-gateway/v2
+  version: ^2.28.0
+  subpackages:
+  - runtime
+  - protoc-gen-grpc-gateway
+  - protoc-gen-openapiv2
 - package: github.com/grpc-ecosystem/grpc-gateway
   subpackages:
   - examples/examplepb
@@ -44,6 +52,20 @@ import:
   - grpclog
   - metadata
   - status
+- package: google.golang.org/grpc
+  version: ^1.71.0
+- package: google.golang.org/protobuf
+  version: ^1.36.5
+- package: gorm.io/gorm
+  version: ^1.25.12
+- package: gorm.io/driver/postgres
+  version: ^1.5.11
+- package: github.com/go-redis/redis/v8
+  version: ^8.11.5
+- package: github.com/lib/pq
+  version: ^1.10.9
+- package: github.com/patrickmn/go-cache
+  version: ^2.1.0
 # New dependencies for scan service
 - package: github.com/lib/pq
   version: ^1.10.0

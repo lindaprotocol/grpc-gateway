@@ -13,6 +13,7 @@ import grpc_gateway_examples_sub "github.com/grpc-ecosystem/grpc-gateway/example
 import sub2 "github.com/grpc-ecosystem/grpc-gateway/examples/sub2"
 import google_protobuf3 "github.com/golang/protobuf/ptypes/timestamp"
 import _ "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger/options"
+import _ 
 
 import (
 	context "golang.org/x/net/context"

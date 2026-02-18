@@ -1,18 +1,20 @@
 package main
 
 import (
-	"flag"
-	"net/http"
-	"strconv"
-	"strings"
-	"github.com/golang/glog"
-	"github.com/grpc-ecosystem/grpc-gateway/runtime"
-	"golang.org/x/net/context"
-	"google.golang.org/grpc"
+    "flag"
+    "fmt"
+    "net/http"
+    "strconv"
+    "strings"
 
-	gw "github.com/lindaprotocol/grpc-gateway/api"
-	"github.com/lindaprotocol/grpc-gateway/api/scan"  // Add this import
-	"fmt"
+    "github.com/golang/glog"
+    "github.com/grpc-ecosystem/grpc-gateway/v2/runtime" 
+    "golang.org/x/net/context"
+    "google.golang.org/grpc"
+    "google.golang.org/grpc/credentials/insecure"
+
+    gw "github.com/lindaprotocol/grpc-gateway/api"
+    "github.com/lindaprotocol/grpc-gateway/api/scan"
 )
 
 var (

@@ -5,6 +5,7 @@ import (
 
 	"github.com/golang/protobuf/proto"
 	descriptor "github.com/golang/protobuf/protoc-gen-go/descriptor"
+	
 )
 
 func TestGoPackageStandard(t *testing.T) {

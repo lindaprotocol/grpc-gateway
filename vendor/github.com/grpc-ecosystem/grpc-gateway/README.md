@@ -139,6 +139,7 @@ Make sure that your `$GOPATH/bin` is in your `$PATH`.
      "github.com/golang/glog"
      "golang.org/x/net/context"
      "github.com/grpc-ecosystem/grpc-gateway/runtime"
+     "github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
      "google.golang.org/grpc"
    	
      gw "path/to/your_service_package"

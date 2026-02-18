@@ -8,6 +8,7 @@ import (
 	"testing"
 
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/grpc-ecosystem/grpc-gateway/utilities"
 )
 

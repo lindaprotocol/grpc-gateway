@@ -15,6 +15,7 @@ import (
 	"github.com/golang/protobuf/proto"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/grpc-ecosystem/grpc-gateway/utilities"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/lindaprotocol/grpc-gateway/core"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"

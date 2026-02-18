@@ -33,6 +33,7 @@ func New(reg *descriptor.Registry, useRequestContext bool) gen.Generator {
 		"io",
 		"net/http",
 		"github.com/grpc-ecosystem/grpc-gateway/runtime",
+		"github.com/grpc-ecosystem/grpc-gateway/v2/runtime",
 		"github.com/grpc-ecosystem/grpc-gateway/utilities",
 		"github.com/golang/protobuf/proto",
 		"golang.org/x/net/context",
