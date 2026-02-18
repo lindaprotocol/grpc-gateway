@@ -6,11 +6,10 @@
 PKG=github.com/grpc-ecosystem/grpc-gateway
 LINDAPKG=github.com/lindaprotocol/grpc-gateway
 
-SCAN_PROTO=protocol/api/scan/scan.proto
-SCAN_MESSAGES_PROTO=protocol/api/scan/scan_messages.proto
-SCAN_GO=$(SCAN_PROTO:.proto=.pb.go) $(SCAN_MESSAGES_PROTO:.proto=.pb.go)
-SCAN_GW_GO=$(SCAN_PROTO:.proto=.pb.gw.go)
-SCAN_SWAGGER=$(SCAN_PROTO:.proto=.swagger.json)
+API_PROTO=protocol/api/api.proto
+API_GO=$(API_PROTO:.proto=.pb.go)
+API_GW_GO=$(API_PROTO:.proto=.pb.gw.go)
+API_SWAGGER=$(API_PROTO:.proto=.swagger.json)
 
 GO_PLUGIN=bin/protoc-gen-go
 GO_PROTOBUF_REPO=github.com/golang/protobuf
@@ -96,12 +95,6 @@ PROTOC_INC_PATH=$(dir $(shell which protoc))/../include
 
 generate: $(RUNTIME_GO) $(SCAN_GO) $(SCAN_GW_GO)
 
-$(SCAN_GO): $(SCAN_PROTO) $(SCAN_MESSAGES_PROTO) $(GO_PLUGIN)
-	protoc -I $(PROTOC_INC_PATH) -I. -I$(GOOGLEAPIS_DIR) \
-		--plugin=$(GO_PLUGIN) \
-		--go_out=$(PKGMAP),plugins=grpc:$(GOPATH)/src \
-		$(SCAN_PROTO) $(SCAN_MESSAGES_PROTO)
-
 .SUFFIXES: .go .proto
 
 $(GO_PLUGIN):
@@ -112,17 +105,17 @@ $(RUNTIME_GO): $(RUNTIME_PROTO) $(GO_PLUGIN)
 	protoc -I $(PROTOC_INC_PATH) --plugin=$(GO_PLUGIN) -I $(GOPATH)/src/$(GO_PTYPES_ANY_PKG) -I. --go_out=$(PKGMAP):. $(RUNTIME_PROTO)
 
 # New targets for scan service
-$(SCAN_GO): $(SCAN_PROTO) $(GO_PLUGIN)
+$(API_GO): $(API_PROTO) $(GO_PLUGIN)
 	protoc -I $(PROTOC_INC_PATH) -I. -I$(GOOGLEAPIS_DIR) \
 		--plugin=$(GO_PLUGIN) \
 		--go_out=$(PKGMAP),plugins=grpc:$(GOPATH)/src \
-		$(SCAN_PROTO)
+		$(API_PROTO)
 
-$(SCAN_GW_GO): $(SCAN_PROTO) $(GATEWAY_PLUGIN)
+$(API_GW_GO): $(API_PROTO) $(GATEWAY_PLUGIN)
 	protoc -I $(PROTOC_INC_PATH) -I. -I$(GOOGLEAPIS_DIR) \
 		--plugin=$(GATEWAY_PLUGIN) \
 		--grpc-gateway_out=logtostderr=true,$(PKGMAP):$(GOPATH)/src \
-		$(SCAN_PROTO)
+		$(API_PROTO)
 
 $(SCAN_SWAGGER): $(SCAN_PROTO) $(SWAGGER_PLUGIN)
 	protoc -I $(PROTOC_INC_PATH) -I. -I$(GOOGLEAPIS_DIR) \

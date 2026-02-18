@@ -13,7 +13,6 @@ import (
 
     "github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
     "github.com/lindaprotocol/grpc-gateway/api"
-    "github.com/lindaprotocol/grpc-gateway/api/scan"
     "github.com/lindaprotocol/grpc-gateway/internal/service"
     "github.com/lindaprotocol/grpc-gateway/internal/storage"
     "google.golang.org/grpc"
@@ -83,7 +82,7 @@ func startGRPCServer(scanService *service.ScanService, tagService *service.TagSe
     }
 
     s := grpc.NewServer()
-    scan.RegisterScanServiceServer(s, scanService)
+    api.RegisterScanServiceServer(s, scanService)
     reflection.Register(s)
 
     log.Printf("gRPC server listening on :%d", *grpcPort)
@@ -112,7 +111,7 @@ func startHTTPGateway() {
     opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
     
     // Register scan service
-    err := scan.RegisterScanServiceHandlerFromEndpoint(ctx, mux, fmt.Sprintf("localhost:%d", *grpcPort), opts)
+    err := api.RegisterScanServiceHandlerFromEndpoint(ctx, mux, fmt.Sprintf("localhost:%d", *grpcPort), opts)
     if err != nil {
         log.Fatalf("Failed to register gateway: %v", err)
     }

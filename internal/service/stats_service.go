@@ -5,7 +5,6 @@ import (
     "time"
 
     "github.com/lindaprotocol/grpc-gateway/api"
-    "github.com/lindaprotocol/grpc-gateway/api/scan"
     "gorm.io/gorm"
 )
 

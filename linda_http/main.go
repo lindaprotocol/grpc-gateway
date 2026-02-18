@@ -14,7 +14,6 @@ import (
     "google.golang.org/grpc/credentials/insecure"
 
     gw "github.com/lindaprotocol/grpc-gateway/api"
-    "github.com/lindaprotocol/grpc-gateway/api/scan"
 )
 
 var (
@@ -82,7 +81,7 @@ func run() error {
 	}
 
 	// Register Scan service
-	err = scan.RegisterScanServiceHandlerFromEndpoint(ctx, mux, grpcEndpoint, opts)
+	err = api.RegisterScanServiceHandlerFromEndpoint(ctx, mux, grpcEndpoint, opts)
 	if err != nil {
 		return err
 	}
